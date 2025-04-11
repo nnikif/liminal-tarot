@@ -1,26 +1,35 @@
-export class ImageKitGallery {
-  constructor(containerSelector, options = {}) {
-    this.container = document.querySelector(containerSelector);
-    this.baseUrl = options.baseUrl || "https://ik.imagekit.io/nnikif/";
-    this.images = options.images || [];
-    this.classes = options.classes || "imagekit-img";
-    this.render();
-  }
-
-  render() {
-    if (!this.container) {
-      console.error("Container not found.");
-      return;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ImageKit Gallery</title>
+  <style>
+    .imagekit-img {
+      max-width: 200px;
+      margin: 10px;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      transition: transform 0.2s ease;
     }
+    .imagekit-img:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div id="gallery"></div>
 
-    this.container.innerHTML = ""; // Clean old illusions
+  <script type="module">
+    import { ImageKitGallery } from './imagekit-gallery.js';
 
-    this.images.forEach((path) => {
-      const img = document.createElement("img");
-      img.src = `${this.baseUrl}${path}`;
-      img.alt = path.split('/').pop().split('.')[0];
-      img.className = this.classes;
-      this.container.appendChild(img);
+    new ImageKitGallery("#gallery", {
+      baseUrl: "https://ik.imagekit.io/your_imagekit_id/",
+      images: [
+        "alchemy/cross_of_saturn.jpg",
+        "mysteries/lunar_mirror.png",
+        "symbols/fools_cap_gold.gif"
+      ]
     });
-  }
-}
+  </script>
+</body>
+</html>
